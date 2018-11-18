@@ -8,6 +8,7 @@
     <script src="./aframe-audioanalyser-component.js"></script>
     <script src="./audioanalyser-waveform.js"></script>
     <script src="./test-component.js"></script>
+    <script src="./rings-component.js"></script>
   </head>
   <body>
 
@@ -15,15 +16,26 @@
       <a-assets>
         <audio id="song" src="./sample.mp3" autoplay loop></audio>
       </a-assets>
-      <a-entity id="analyser"
+      <!-- <a-entity id="analyser"
           audioanalyser="src: #song"
           audioanalyser-waveform="radius: 0.5"
           rotation="90 0 0"
           position="0 30 0"
-        ></a-entity>
+        ></a-entity> -->
+      <a-entity id="analyser"
+          audioanalyser="src: #song"
+          rotation="90 0 0"
+          position="0 30 0"
+      ></a-entity>
       <a-entity id="test"
         test-component="analyserEl: #analyser;"
         position="0 1.25 -5">
+      </a-entity>
+      <a-entity id="rings"
+        rings-component="analyserEl:#analyser;"
+        position="0 0 0"
+        rotation="90 0 0"
+      >
       </a-entity>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#333333" shadow></a-plane>
       <a-entity position = "0 0 0">

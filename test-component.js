@@ -56,7 +56,8 @@ AFRAME.registerComponent('test-component', {
         geometry.initialVertices.push(geometry.vertices[i].clone());
     }
 
-    var material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe:true});
+    // var material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe:true});
+    var material = new THREE.MeshLambertMaterial({color: 0x0ceeff});
     this.mesh = new THREE.Mesh( geometry, material );
     el.setObject3D('testContainer', new THREE.Object3D());
     el.getObject3D('testContainer').add(this.mesh);
@@ -79,12 +80,12 @@ AFRAME.registerComponent('test-component', {
 
     render_rings(levels, 0.5, 1.5, sphere);
     sphere.geometry.verticesNeedUpdate = true;
-    sphere.rotation.x += 0.03;
-    sphere.rotation.y += 0.02;
-    sphere.rotation.z += 0.02;
+    // sphere.rotation.x += 0.03;
+    // sphere.rotation.y += 0.02;
+    // sphere.rotation.z += 0.02;
   },
 
   remove: function () {
-    this.el.removeObject3D('waveformContainer');
+    this.el.removeObject3D('testContainer');
   }
 });

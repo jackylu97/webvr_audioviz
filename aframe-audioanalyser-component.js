@@ -150,10 +150,11 @@
 	      }
 	      this.volume = sum / this.levels.length;
 	    }
+      
 
 	    // Beat detection.
 	    if (data.enableBeatDetection) {
-	      var BEAT_DECAY_RATE = 0.99;
+	      var BEAT_DECAY_RATE = 0.97;
 	      var BEAT_HOLD = 60;
 	      var BEAT_MIN = 0.15;  // Volume less than this is no beat.
 

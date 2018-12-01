@@ -21,7 +21,7 @@ function interpolate(a,b,x,y,t) {
 }
 
 function render_rings(freqs, lower, higher, sphere) {
-    spectrum_32 = create_buckets(freqs, 75, 75, 32);
+    spectrum_32 = create_buckets(freqs, 75, 125, 32);
     // first vertex
     var val = interpolate(lower, higher, 0.0, 255.0, spectrum_32[0]);
     var temp = sphere.geometry.initialVertices[0].clone().multiplyScalar(val);
@@ -50,14 +50,15 @@ AFRAME.registerComponent('test-component', {
   update: function () {
     var el = this.el;
 
-    var geometry = new THREE.SphereGeometry( 1, 32, 31 );
+    var geometry = new THREE.SphereGeometry( 2, 32, 31 );
     geometry.initialVertices = [];
     for (var i = 0; i < geometry.vertices.length; i++) {
         geometry.initialVertices.push(geometry.vertices[i].clone());
     }
 
-    // var material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe:true});
     var material = new THREE.MeshLambertMaterial({color: 0x0ceeff});
+    // var material = new THREE.MeshNormalMaterial({wireframe:true});
+    // var material = new THREE.MeshLambertMaterial({color: 0x0ceeff});
     this.mesh = new THREE.Mesh( geometry, material );
     el.setObject3D('testContainer', new THREE.Object3D());
     el.getObject3D('testContainer').add(this.mesh);
@@ -80,9 +81,9 @@ AFRAME.registerComponent('test-component', {
 
     render_rings(levels, 0.5, 1.5, sphere);
     sphere.geometry.verticesNeedUpdate = true;
-    // sphere.rotation.x += 0.03;
-    // sphere.rotation.y += 0.02;
-    // sphere.rotation.z += 0.02;
+    sphere.rotation.x += 0.03;
+    sphere.rotation.y += 0.02;
+    sphere.rotation.z += 0.02;
   },
 
   remove: function () {

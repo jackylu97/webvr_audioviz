@@ -1,5 +1,5 @@
 var NUM_RINGS = 4;
-var LEVELS_INC = 25;
+var LEVELS_INC = 200;
 
 AFRAME.registerComponent('rings-component', {
 
@@ -25,36 +25,22 @@ AFRAME.registerComponent('rings-component', {
     // Create container object.
     el.setObject3D('ringContainer', new THREE.Object3D());
 
-    // Create ring geometries.
-    loopShape = new THREE.Shape();
-    loopShape.absarc(0, 0, 1, 0, Math.PI * 2, false);
-    // var points = loopShape.getPoints();
-    // this.geometry = new THREE.BufferGeometry().setFromPoints( points );
-    this.geometry = loopShape.createPointsGeometry(128);
-    this.colors = [0xffffff, 0x2575f7, 0x31ea20, 0xcc1467];
-
+    this.geometry = new THREE.RingGeometry( 3.7, 4, 32 );
+    this.colors = [0xffff00, 0x2575f7, 0x31ea20, 0xcc1467];
     for (var i = 0; i < NUM_RINGS; i++) {
       // Create ring
-      material = new THREE.LineBasicMaterial({
-        color: this.colors[i],
-        linewidth: 1 ,
-        opacity : 0.7,
-        blending : THREE.AdditiveBlending,
-        depthTest : true,
-        transparent : true
-      });
-      mesh = new THREE.Line(this.geometry, material);
+      material = new THREE.MeshBasicMaterial( { color: this.colors[i], side: THREE.DoubleSide } );
+
+      mesh = new THREE.Mesh(this.geometry, material);
+      mesh.position.set(0, 0, -0.1 * i);
       this.rings.push(mesh);
       el.getObject3D('ringContainer').add(mesh);
     }
-    console.log(this.rings);
-    console.log(el.getObject3D('ringContainer'));
   },
 
   tick: function () {
     var analyserEl;
     var data = this.data
-    var mesh = this.mesh;
     var levels;
     var el = this.el;
     var sphere = this.mesh;
@@ -67,12 +53,12 @@ AFRAME.registerComponent('rings-component', {
     }
     for (var i = 0; i < NUM_RINGS; i++) {
       var value = levels[10 + i * LEVELS_INC];
-      value = Math.max(value - 120, 0.1);
+      value = Math.max(value - 80, 0.1);
       mesh = this.rings[i];
-      mesh.scale.x = 0.5 + value / 40;
-      mesh.scale.y = 0.5 + value / 40;
+      mesh.scale.x = 0.3 + value / 30;
+      mesh.scale.y = 0.3 + value / 30;
     }
-    // this.geometry.verticesNeedUpdate = true;
+    this.geometry.verticesNeedUpdate = true;
 
 
   },
